@@ -116,9 +116,10 @@ syn region pythonClassVars start="(" end=")" contained contains=pythonClassParam
 syn match  pythonClassParameters "[^,]*" contained contains=pythonExtraOperator,pythonBuiltin,pythonConstant,pythonStatement,pythonNumber,pythonString,pythonBrackets skipwhite
 
 " Function parameters
-syn match  pythonFunction "\%(\%(def\s\|class\s\|@\)\s*\)\@<=\h\%(\w\|\.\)*" contained nextgroup=pythonFunctionVars
+syn match  pythonFunction "\%(\%(def\s\|class\s\|@\)\s*\)\@<=\h\%(\w\|\.\)*" contained contains=pythonDunderMethod nextgroup=pythonFunctionVars
 syn region pythonFunctionVars start="(" end=")" contained contains=pythonFunctionParameters transparent keepend
 syn match  pythonFunctionParameters "[^,]*" contained contains=pythonSelf,pythonExtraOperator,pythonBuiltin,pythonConstant,pythonStatement,pythonNumber,pythonString,pythonBrackets skipwhite
+syn match  pythonDunderMethod "\<__\(\w\)*__\>"
 
 syn match   pythonComment	"#.*$" contains=pythonTodo,@Spell
 syn keyword pythonTodo		FIXME NOTE NOTES TODO XXX contained
@@ -344,6 +345,7 @@ if version >= 508 || !exists("did_python_syn_inits")
   " Classes, Functions
   HiLink pythonClass    Type
   HiLink pythonFunction Function
+  HiLink pythonDunderMethod	Statement
 
   if !exists("python_no_number_highlight")
     HiLink pythonNumber		Number
