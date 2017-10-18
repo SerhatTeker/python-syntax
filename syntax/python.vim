@@ -121,6 +121,9 @@ syn region pythonFunctionVars start="(" end=")" contained contains=pythonFunctio
 syn match  pythonFunctionParameters "[^,]*" contained contains=pythonSelf,pythonExtraOperator,pythonBuiltin,pythonConstant,pythonStatement,pythonNumber,pythonString,pythonBrackets skipwhite
 syn match  pythonDunderMethod "\<__\(\w\)*__\>"
 
+syn match  pythonFunctionCallKeywordParameter "\<\(\w\)*\>=" contains=pythonAssignmentOperator
+syn match  pythonAssignmentOperator "=" contained contains=pythonExtraOperator
+
 syn match  pythonConstant "\<[A-Z_0-9]*\>"
 
 syn match   pythonComment	"#.*$" contains=pythonTodo,@Spell
