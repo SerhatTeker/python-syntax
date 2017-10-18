@@ -118,7 +118,8 @@ syn match  pythonClassParameters "[^,]*" contained contains=pythonExtraOperator,
 " Function parameters
 syn match  pythonFunction "\%(\%(def\s\|class\s\|@\)\s*\)\@<=\h\%(\w\|\.\)*" contained contains=pythonDunderMethod nextgroup=pythonFunctionVars
 syn region pythonFunctionVars start="(" end=")" contained contains=pythonFunctionParameters transparent keepend
-syn match  pythonFunctionParameters "[^,]*" contained contains=pythonSelf,pythonExtraOperator,pythonBuiltin,pythonConstant,pythonStatement,pythonNumber,pythonString,pythonBrackets skipwhite
+syn match  pythonFunctionParameters "[^,:]*" contained contains=pythonSelf,pythonAnnotation,pythonExtraOperator,pythonBuiltin,pythonConstant,pythonStatement,pythonNumber,pythonString,pythonBrackets skipwhite
+syn match  pythonAnnotation ": [^,]*" contained contains=pythonSelf,pythonExtraOperator,pythonBuiltin,pythonConstant,pythonStatement,pythonNumber,pythonString,pythonBrackets skipwhite
 syn match  pythonDunderMethod "\<__\(\w\)*__\>"
 
 syn match  pythonFunctionCallKeywordParameter "\<\(\w\)*\>=" contains=pythonAssignmentOperator
