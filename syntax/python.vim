@@ -340,9 +340,9 @@ if version >= 508 || !exists("did_python_syn_inits")
   HiLink pythonRepeat		Repeat
   HiLink pythonOperator		Operator
   HiLink pythonException	Exception
-  HiLink pythonInclude		Include
+  HiLink pythonInclude		Statement
   HiLink pythonAsync		Statement
-  HiLink pythonDecorator	Define
+  HiLink pythonDecorator	Constant
   HiLink pythonComment		Comment
   HiLink pythonTodo		Todo
   HiLink pythonString		String
@@ -356,7 +356,7 @@ if version >= 508 || !exists("did_python_syn_inits")
   " Classes, Functions
   HiLink pythonClass    Type
   HiLink pythonFunction Function
-  HiLink pythonDunderMethod	Statement
+  HiLink pythonDunderMethod	Constant
 
   if !exists("python_no_number_highlight")
     HiLink pythonNumber		Number
@@ -377,7 +377,7 @@ if version >= 508 || !exists("did_python_syn_inits")
 
   if exists("python_self_cls_highlight")
     syn keyword pythonSelf self cls
-    HiLink pythonSelf Identifier
+    HiLink pythonSelf Type
   endif
   if !exists("python_no_operator_highlight")
     HiLink pythonExtraOperator       Operator
