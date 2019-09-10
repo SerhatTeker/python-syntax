@@ -351,9 +351,9 @@ if version >= 508 || !exists("did_python_syn_inits")
   HiLink pythonQuotes		    String
   HiLink pythonTripleQuotes	    pythonQuotes
   HiLink pythonEscape		    Special
-  HiLink pythonConstant		    Constant
+  HiLink pythonConstant		    Number
   HiLink pythonBuiltinConstant	    Constant
-  HiLink pythonBuiltinConstantSub   Constant
+  HiLink pythonBuiltinConstantSub   Number
 
   " Classes, Functions
   HiLink pythonClass    Type
@@ -388,7 +388,7 @@ if version >= 508 || !exists("did_python_syn_inits")
   if !exists("python_no_parameter_highlight")
     HiLink pythonBrackets           Normal
     HiLink pythonClassParameters    Constant
-    HiLink pythonFunctionParameters Constant
+    HiLink pythonFunctionParameters Number
   endif
 
   delcommand HiLink
