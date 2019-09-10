@@ -81,6 +81,7 @@ syn keyword pythonClassKeyword	class nextgroup=pythonClass skipwhite
 syn keyword pythonDefKeyword	def nextgroup=pythonFunction skipwhite
 
 syn keyword pythonStatement	False, None, True
+
 syn keyword pythonStatement	as assert break continue del exec global
 syn keyword pythonStatement	lambda nonlocal pass print return with
 syn keyword pythonConditional	elif else if
@@ -116,7 +117,10 @@ syn region pythonClassVars start="(" end=")" contained contains=pythonClassParam
 syn match  pythonClassParameters "[^,]*" contained contains=pythonExtraOperator,pythonBuiltin,pythonConstant,pythonStatement,pythonNumber,pythonString,pythonBrackets skipwhite
 
 " Function parameters
+syn match  pythonFunction '\(\.\)\@<=.\{-}\((\)\@='
+syn match  pythonFunction '\(\.\)\@<!\w*\((\)\@='
 syn match  pythonFunction "\%(\%(def\s\|class\s\|@\)\s*\)\@<=\h\%(\w\|\.\)*" contained contains=pythonDunderMethod nextgroup=pythonFunctionVars
+
 syn region pythonFunctionVars start="(" end=")" contained contains=pythonFunctionParameters transparent keepend
 syn match  pythonFunctionParameters "[^,:]*" contained contains=pythonSelf,pythonAnnotation,pythonExtraOperator,pythonBuiltin,pythonConstant,pythonStatement,pythonNumber,pythonString,pythonBrackets skipwhite
 syn match  pythonAnnotation ": [^,]*" contained contains=pythonSelf,pythonExtraOperator,pythonBuiltin,pythonConstant,pythonStatement,pythonNumber,pythonString,pythonBrackets skipwhite
