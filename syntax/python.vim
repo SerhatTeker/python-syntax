@@ -226,8 +226,9 @@ if !exists("python_no_builtin_highlight")
   syn keyword pythonBuiltin	False True None
   syn keyword pythonBuiltin	NotImplemented Ellipsis __debug__
 
-  syn keyword pythonBuiltinConstant	False True None
   syn keyword pythonBuiltinConstant	NotImplemented Ellipsis __debug__
+  " different sub constant for customization
+  syn keyword pythonBuiltinConstantSub	False True None
   " built-in functions
   syn keyword pythonBuiltin	abs all any bin bool bytearray callable chr
   syn keyword pythonBuiltin	classmethod compile complex delattr dict dir
@@ -333,25 +334,26 @@ if version >= 508 || !exists("did_python_syn_inits")
   endif
 
   " The default highlight links.  Can be overridden later.
-  HiLink pythonStatement	Statement
-  HiLink pythonClassKeyword	Statement
-  HiLink pythonDefKeyword	Statement
-  HiLink pythonConditional	Conditional
-  HiLink pythonRepeat		Repeat
-  HiLink pythonOperator		Operator
-  HiLink pythonException	Exception
-  HiLink pythonInclude		Statement
-  HiLink pythonAsync		Statement
-  HiLink pythonDecorator	Constant
-  HiLink pythonComment		Comment
-  HiLink pythonTodo		Todo
-  HiLink pythonString		String
-  HiLink pythonRawString	String
-  HiLink pythonQuotes		String
-  HiLink pythonTripleQuotes	pythonQuotes
-  HiLink pythonEscape		Special
-  HiLink pythonConstant		Constant
-  HiLink pythonBuiltinConstant	Constant
+  HiLink pythonStatement	    Statement
+  HiLink pythonClassKeyword	    Statement
+  HiLink pythonDefKeyword	    Statement
+  HiLink pythonConditional	    Conditional
+  HiLink pythonRepeat		    Repeat
+  HiLink pythonOperator		    Operator
+  HiLink pythonException	    Exception
+  HiLink pythonInclude		    Statement
+  HiLink pythonAsync		    Statement
+  HiLink pythonDecorator	    Constant
+  HiLink pythonComment		    Comment
+  HiLink pythonTodo		    Todo
+  HiLink pythonString		    String
+  HiLink pythonRawString	    String
+  HiLink pythonQuotes		    String
+  HiLink pythonTripleQuotes	    pythonQuotes
+  HiLink pythonEscape		    Special
+  HiLink pythonConstant		    Constant
+  HiLink pythonBuiltinConstant	    Constant
+  HiLink pythonBuiltinConstantSub   Constant
 
   " Classes, Functions
   HiLink pythonClass    Type
