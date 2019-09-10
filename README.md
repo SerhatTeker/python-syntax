@@ -30,12 +30,12 @@ Changes from the original `python.vim` are:
     * `pythonRepeat` `pythonConditional` `pythonInclude` `pythonTodo` `pythonComment` `pythonStatement`
     * `pythonEscape` `pythonSpaceError` `pythonException` `pythonExceptions` `pythonDoctest` `pythonDoctestValue`
     * `pythonNumber` `pythonString` `pythonRawString` `pythonBuiltin` `pythonFunction` `pythonClass` `pythonDecorator`
-    * `pythonSelf` `pythonConstant` `pythonBrackets` `pythonOperator` `pythonExtraOperator` `pythonExtraPseudoOperator` `pythonClassParameters` `pythonFunctionParameters`
+    * `pythonSelf` `pythonConstant` `pythonBrackets` `pythonOperator` `pythonExtraOperator` `pythonExtraPseudoOperator` `pythonClassParameters` `pythonFunctionParameters` `pythonBuiltinConstantSub`
 
 ## How to install
 
 The easiest installation method is to place `syntax/python.vim` script into your `~/.vim/syntax/` directory.
-You can also use `Pathogen` or `Vundle` plugin managers in which case you can install the whole `kh3phr3n/python-syntax`
+You can also use `Pathogen`, `Vundle` or `Plug` plugin managers in which case you can install the whole `SerhatTeker/python-syntax`
 repository into the corresponding plugins directory.
 
 ## Informations
