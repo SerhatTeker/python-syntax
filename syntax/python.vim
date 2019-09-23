@@ -134,12 +134,26 @@ syn match  pythonConstant "\<[A-Z_0-9]*\>"
 syn match   pythonComment	"#.*$" contains=pythonTodo,@Spell
 syn keyword pythonTodo		FIXME NOTE NOTES TODO XXX contained
 
+syn cluster pythonExpression contains=pythonStatement,pythonRepeat,pythonConditional,pythonNumber,pythonNumberError,pythonString,pythonParens,pythonBrackets,pythonOperator,pythonExtraOperator,pythonBuiltin
+
 " Triple-quoted strings can contain doctests.
+syn region  pythonBytes matchgroup=pythonQuotes
+      \ start=+[bB]\=\z(['"]\)+ end="\z1" skip="\\\\\|\\\z1"
+      \ contains=pythonEscape,@Spell
+syn region  pythonBytes matchgroup=pythonTripleQuotes
+      \ start=+[bB]\=\z('''\|"""\)+ end="\z1" keepend
+      \ contains=pythonEscape,pythonSpaceError,pythonDoctest,@Spell
 syn region  pythonString matchgroup=pythonQuotes
       \ start=+[uU]\=\z(['"]\)+ end="\z1" skip="\\\\\|\\\z1"
       \ contains=pythonEscape,@Spell
 syn region  pythonString matchgroup=pythonTripleQuotes
       \ start=+[uU]\=\z('''\|"""\)+ end="\z1" keepend
+      \ contains=pythonEscape,pythonSpaceError,pythonDoctest,@Spell
+syn region  pythonFormatString matchgroup=pythonQuotes
+      \ start=+[uU]\=[fF]\z(['"]\)+ end="\z1" skip="\\\\\|\\\z1"
+      \ contains=pythonEscape,@Spell
+syn region  pythonFormatString matchgroup=pythonTripleQuotes
+      \ start=+[uU]\=[fF]\z('''\|"""\)+ end="\z1" keepend
       \ contains=pythonEscape,pythonSpaceError,pythonDoctest,@Spell
 syn region  pythonRawString matchgroup=pythonQuotes
       \ start=+[uU]\=[rR]\z(['"]\)+ end="\z1" skip="\\\\\|\\\z1"
@@ -147,6 +161,10 @@ syn region  pythonRawString matchgroup=pythonQuotes
 syn region  pythonRawString matchgroup=pythonTripleQuotes
       \ start=+[uU]\=[rR]\z('''\|"""\)+ end="\z1" keepend
       \ contains=pythonSpaceError,pythonDoctest,@Spell
+
+syn match pythonStringFormat "{{\|}}" contained containedin=pythonString,pythonRawString,pythonFormatString
+syn match pythonStringFormat "{\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)\=\%(\.\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\[\%(\d\+\|[^!:\}]\+\)\]\)*\%(![rsa]\)\=\%(:\%({\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)}\|\%([^}]\=[<>=^]\)\=[ +-]\=#\=0\=\d*,\=\%(\.\d\+\)\=[bcdeEfFgGnosxX%]\=\)\=\)\=}" contained containedin=pythonString,pythonRawString
+syn region pythonStrInterpRegion start="{"he=e+1,rs=e+1 end="\%(![rsa]\)\=\%(:\%({\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)}\|\%([^}]\=[<>=^]\)\=[ +-]\=#\=0\=\d*,\=\%(\.\d\+\)\=[bcdeEfFgGnosxX%]\=\)\=\)\=}"hs=s-1,re=s-1 extend contained containedin=pythonFormatString contains=pythonStrInterpRegion,@pythonExpression
 
 syn match   pythonEscape	+\\[abfnrtv'"\\]+ contained
 syn match   pythonEscape	"\\\o\{1,3}" contained
@@ -199,16 +217,30 @@ endif
 " https://docs.python.org/3/reference/lexical_analysis.html#numeric-literals
 if !exists("python_no_number_highlight")
   " numbers (including longs and complex)
-  syn match   pythonNumber	"\<0[oO]\=\o\+[Ll]\=\>"
-  syn match   pythonNumber	"\<0[xX]\x\+[Ll]\=\>"
-  syn match   pythonNumber	"\<0[bB][01]\+[Ll]\=\>"
-  syn match   pythonNumber	"\<\%([1-9]\d*\|0\)[Ll]\=\>"
-  syn match   pythonNumber	"\<\d\+[jJ]\>"
-  syn match   pythonNumber	"\<\d\+[eE][+-]\=\d\+[jJ]\=\>"
-  syn match   pythonNumber
-	\ "\<\d\+\.\%([eE][+-]\=\d\+\)\=[jJ]\=\%(\W\|$\)\@="
-  syn match   pythonNumber
-	\ "\%(^\|\W\)\zs\d*\.\d\+\%([eE][+-]\=\d\+\)\=[jJ]\=\>"
+  syn match   pythonNumberError	"\<0[xX]\x*[g-zG-Z]\x*\>" display
+  syn match   pythonNumberError	"\<0[oO]\=\o*\D\+\d*\>" display
+  syn match   pythonNumberError	"\<0[bB][01]*\D\+\d*\>" display
+
+  syn match   pythonNumber	"\<0[xX][_0-9a-fA-F]*\x\>" display
+  syn match   pythonNumber	"\<0[oO][_0-7]*\o\>" display
+  syn match   pythonNumber	"\<0[bB][_01]*[01]\>" display
+
+  syn match   pythonNumberError "\<\d[_0-9]*\D\>" display
+  syn match   pythonNumberError "\<0[_0-9]\+\>" display
+  syn match   pythonNumberError	"\<\d[_0-9]*_\>" display
+  syn match   pythonNumber	"\<\d\>" display
+  syn match   pythonNumber	"\<[1-9][_0-9]*\d\>" display
+  syn match   pythonNumber	"\<\d[jJ]\>" display
+  syn match   pythonNumber	"\<[1-9][_0-9]*\d[jJ]\>" display
+
+  syn match   pythonNumberError	"\<0[oO]\=\o*[8-9]\d*\>" display
+  syn match   pythonNumberError	"\<0[bB][01]*[2-9]\d*\>" display
+
+  syn match   pythonNumber	"\.\d\%([_0-9]*\d\)\=\%([eE][+-]\=\d\%([_0-9]*\d\)\=\)\=[jJ]\=\>" display
+  syn match   pythonNumber	"\<\d\%([_0-9]*\d\)\=[eE][+-]\=\d\%([_0-9]*\d\)\=[jJ]\=\>" display
+  syn match   pythonNumber	"\<\d\%([_0-9]*\d\)\=\.\d\%([_0-9]*\d\)\=\%([eE][+-]\=\d\%([_0-9]*\d\)\=\)\=[jJ]\=" display
+
+
 endif
 
 " Group the built-ins in the order in the 'Python Library Reference' for
@@ -360,8 +392,14 @@ if version >= 508 || !exists("did_python_syn_inits")
   HiLink pythonFunction Function
   HiLink pythonDunderMethod	Constant
 
+  HiLink pythonBytes		String
+  " String
+  HiLink pythonFormatString	String
+  HiLink pythonStringFormat	Special
+
   if !exists("python_no_number_highlight")
     HiLink pythonNumber		Number
+    HiLink pythonNumberError	Error
   endif
   if !exists("python_no_builtin_highlight")
     HiLink pythonBuiltin	Function
