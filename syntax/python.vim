@@ -108,6 +108,12 @@ syn match   pythonDecorator	"@" display nextgroup=pythonFunction skipwhite
 " doctests.
 " A dot must be allowed because of @MyClass.myfunc decorators.
 
+" Comma
+syn match pythonDot      "\."   display
+syn match pythonComma    "[,]"  display
+syn match pythonColon    "[:]"  display
+
+
 " Bracket symbols
 syn match pythonBrackets "[(|)]" contained skipwhite
 
@@ -134,7 +140,7 @@ syn match  pythonConstant "\<[A-Z_0-9]*\>"
 syn match   pythonComment	"#.*$" contains=pythonTodo,@Spell
 syn keyword pythonTodo		FIXME NOTE NOTES TODO XXX contained
 
-syn cluster pythonExpression contains=pythonStatement,pythonRepeat,pythonConditional,pythonNumber,pythonNumberError,pythonString,pythonParens,pythonBrackets,pythonOperator,pythonExtraOperator,pythonBuiltin
+syn cluster pythonExpression contains=pythonStatement,pythonRepeat,pythonConditional,pythonNumber,pythonNumberError,pythonString,pythonParens,pythonBrackets,pythonOperator,pythonExtraOperator,pythonBuiltin,pythonDot,pythonComma
 
 " Triple-quoted strings can contain doctests.
 syn region  pythonBytes matchgroup=pythonQuotes
@@ -164,7 +170,12 @@ syn region  pythonRawString matchgroup=pythonTripleQuotes
 
 syn match pythonStringFormat "{{\|}}" contained containedin=pythonString,pythonRawString,pythonFormatString
 syn match pythonStringFormat "{\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)\=\%(\.\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\[\%(\d\+\|[^!:\}]\+\)\]\)*\%(![rsa]\)\=\%(:\%({\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)}\|\%([^}]\=[<>=^]\)\=[ +-]\=#\=0\=\d*,\=\%(\.\d\+\)\=[bcdeEfFgGnosxX%]\=\)\=\)\=}" contained containedin=pythonString,pythonRawString
-syn region pythonStrInterpRegion start="{"he=e+1,rs=e+1 end="\%(![rsa]\)\=\%(:\%({\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)}\|\%([^}]\=[<>=^]\)\=[ +-]\=#\=0\=\d*,\=\%(\.\d\+\)\=[bcdeEfFgGnosxX%]\=\)\=\)\=}"hs=s-1,re=s-1 extend contained containedin=pythonFormatString contains=pythonStrInterpRegion,@pythonExpression
+
+syn region pythonStringReplacementField matchgroup=PythonFormatBraces start="{\@<!{{\@!" end="\%(![rsa]\)\=\%(:\%({\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)}\|\%([^}]\=[<>=^]\)\=[ +-]\=#\=0\=\d*,\=\%(\.\d\+\)\=[bcdeEfFgGnosxX%]\=\)\=\)\=}"hs=s-1,re=e-1 extend contained containedin=pythonFormatString contains=pythonStringReplacementField,pythonStringconversion,pythonStringFormatSpec,@pythonExpression
+
+syn match pythonStringConversion "![rsa]" contained containedin=pythonStringReplacementField
+
+syn region pythonStringFormatSpec start=":" end="\%({\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)}\|\%([^}]\=[<>=^]\)\=[ +-]\=#\=0\=\d*,\=\%(\.\d\+\)\=[bcdeEfFgGnosxX%]\=\)\=}\@=" extend contained containedin=pythonStringReplacementField contains=pythonStringReplacementField
 
 syn match   pythonEscape	+\\[abfnrtv'"\\]+ contained
 syn match   pythonEscape	"\\\o\{1,3}" contained
@@ -396,6 +407,8 @@ if version >= 508 || !exists("did_python_syn_inits")
   " String
   HiLink pythonFormatString	String
   HiLink pythonStringFormat	Special
+  HiLink pythonStringConversion	Special
+  HiLink pythonStringFormatSpec	Special
 
   if !exists("python_no_number_highlight")
     HiLink pythonNumber		Number
