@@ -379,69 +379,69 @@ if version >= 508 || !exists("did_python_syn_inits")
   endif
 
   " The default highlight links.  Can be overridden later.
-  HiLink pythonStatement	    Statement
-  HiLink pythonClassKeyword	    Statement
-  HiLink pythonDefKeyword	    Statement
-  HiLink pythonConditional	    Conditional
-  HiLink pythonRepeat		    Repeat
-  HiLink pythonOperator		    Operator
-  HiLink pythonException	    Exception
-  HiLink pythonInclude		    Statement
-  HiLink pythonAsync		    Statement
-  HiLink pythonDecorator	    Constant
-  HiLink pythonComment		    Comment
-  HiLink pythonTodo		    Todo
-  HiLink pythonString		    String
-  HiLink pythonRawString	    String
-  HiLink pythonQuotes		    String
-  HiLink pythonTripleQuotes	    pythonQuotes
-  HiLink pythonEscape		    Special
-  HiLink pythonConstant		    Number
-  HiLink pythonBuiltinConstant	    Constant
-  HiLink pythonBuiltinConstantSub   Number
+  HiLink pythonStatement	      Statement
+  HiLink pythonClassKeyword	      Statement
+  HiLink pythonDefKeyword	      Statement
+  HiLink pythonConditional	      Conditional
+  HiLink pythonRepeat		      Repeat
+  HiLink pythonOperator		      Operator
+  HiLink pythonException	      Exception
+  HiLink pythonInclude		      Statement
+  HiLink pythonAsync		      Statement
+  HiLink pythonDecorator	      Constant
+  HiLink pythonComment		      Comment
+  HiLink pythonTodo		      Todo
+  HiLink pythonString		      String
+  HiLink pythonRawString	      String
+  HiLink pythonQuotes		      String
+  HiLink pythonTripleQuotes	      pythonQuotes
+  HiLink pythonEscape		      Special
+  HiLink pythonConstant		      Number
+  HiLink pythonBuiltinConstant	      Constant
+  HiLink pythonBuiltinConstantSub     Number
 
   " Classes, Functions
-  HiLink pythonClass    Type
-  HiLink pythonFunction Function
-  HiLink pythonDunderMethod	Constant
+  HiLink pythonClass		      Type
+  HiLink pythonFunction		      Function
 
-  HiLink pythonBytes		String
+  HiLink pythonBytes		      String
   " String
-  HiLink pythonFormatString	String
-  HiLink pythonStringFormat	Special
-  HiLink pythonStringConversion	Special
-  HiLink pythonStringFormatSpec	Special
+  HiLink pythonFormatString	      String
+  HiLink pythonStringFormat	      Special
+  HiLink pythonStringConversion	      Special
+  HiLink pythonStringFormatSpec	      Special
 
   if !exists("python_no_number_highlight")
-    HiLink pythonNumber		Number
-    HiLink pythonNumberError	Error
+    HiLink pythonNumber		      Number
+    HiLink pythonNumberError	      Error
   endif
   if !exists("python_no_builtin_highlight")
-    HiLink pythonBuiltin	Function
+    HiLink pythonBuiltin	      Function
+    HiLink pythonDunderMethod	      Constant
   endif
   if !exists("python_no_exception_highlight")
-    HiLink pythonExceptions	Structure
+    HiLink pythonExceptions	      Structure
   endif
   if exists("python_space_error_highlight")
-    HiLink pythonSpaceError	Error
+    HiLink pythonSpaceError	      Error
   endif
   if !exists("python_no_doctest_highlight")
-    HiLink pythonDoctest	Special
-    HiLink pythonDoctestValue	Define
+    HiLink pythonDoctest	      Special
+    HiLink pythonDoctestValue	      Define
   endif
 
   if exists("python_self_cls_highlight")
     syn keyword pythonSelf self cls
-    HiLink pythonSelf Type
+    HiLink pythonSelf		      Type
   endif
   if !exists("python_no_operator_highlight")
-    HiLink pythonExtraOperator       Operator
-    HiLink pythonExtraPseudoOperator Operator
+    HiLink pythonExtraOperator	      Operator
+    HiLink pythonExtraPseudoOperator  Operator
   endif
   if !exists("python_no_parameter_highlight")
-    HiLink pythonBrackets           Normal
-    HiLink pythonClassParameters    Constant
-    HiLink pythonFunctionParameters Number
+    HiLink pythonBrackets	      Normal
+    HiLink pythonClassParameters      Constant
+    HiLink pythonFunctionParameters   Number
   endif
 
   delcommand HiLink
